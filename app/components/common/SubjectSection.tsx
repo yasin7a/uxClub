@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Slider from "react-slick";
 import sliderImg from "../../public/img/test-slider-img.png";
 let data = [
@@ -62,7 +62,22 @@ const SubjectSection = () => {
   const previous = () => {
     sliderRef?.current.slickPrev();
   };
+  const [swiped, setSwiped] = useState(false);
 
+  const handleSwiped = useCallback(() => {
+    setSwiped(true);
+  }, [setSwiped]);
+
+  const handleOnItemClick = useCallback(
+    (e: any) => {
+      if (swiped) {
+        e.stopPropagation();
+        e.preventDefault();
+        setSwiped(false);
+      }
+    },
+    [swiped]
+  );
   return (
     <div className="wrap py-12 bg-white">
       <div className="container text-center">
@@ -73,15 +88,19 @@ const SubjectSection = () => {
           যেকোনো বিষয়ের উপর এক্সপার্ট হোন এই স্পেশাল কোর্সে
         </p>
         <div className="">
-          <Slider ref={sliderRef} {...settings}>
+          <Slider ref={sliderRef} {...settings} onSwipe={handleSwiped}>
             {data.map((item, i) => {
               return (
-                <div key={i} className="py-8 px-3">
-                  {/* <Link href="/"> */}
+                <div
+                  key={i}
+                  className="py-8 px-3"
+                  onClickCapture={handleOnItemClick}
+                >
+                  <Link href="/">
                     <div className=" cursor-pointer  rounded-[18px] onhover:hover:-translate-y-3 transition-transform duration-500">
                       <Image src={item.img} alt="" className="w-full" />
                     </div>
-                  {/* </Link> */}
+                  </Link>
                 </div>
               );
             })}

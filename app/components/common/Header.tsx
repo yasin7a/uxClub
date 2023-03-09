@@ -32,7 +32,7 @@ let dataMore = [
   },
 ];
 
-const Header = () => {
+const Header = ({ test = false }: { test?: boolean }) => {
   let [isNavOPen, setIsNavOpen] = useState(false);
   return (
     <div className="bg-[#0F1B1B] wrap py-2 relative">
@@ -95,39 +95,12 @@ const Header = () => {
                   Inspiration
                 </Link>
               </li>
-              <li className="text-white font-semibold font-roboto text-[16px] transition-colors duration-200 group  flex items-center cursor-pointer px-5 py-2.5">
-                <span className="">More</span>
-                <div className="absolute left-0 -bottom-[80px] p-4 bg-white w-full opacity-0 group-hover:opacity-100 duration-500 invisible transition-opacity group-hover:visible">
-                  <div className="container">
-                    <div className="flex justify-between">
-                      {dataMore.map((item, i) => {
-                        return (
-                          <div className="flex items-center gap-3 " key={i}>
-                            <div>
-                              <Image src={item.img} alt="" className="w-14" />
-                            </div>
-                            <div>
-                              <h5 className="text-[#252525] font-bold text-[18px] leading-none">
-                                {item.title}
-                              </h5>
-                              <p className="text-[#505050] font-normal text-[16px]">
-                                {item.description}
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      })}
-                      <div></div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              {/* <li className="text-white font-semibold font-roboto text-[16px] transition-colors duration-200 group  flex items-center cursor-pointer px-5 py-2.5">
-                <span className="">More</span>
-                <div className="absolute left-0 -bottom-[385px] p-8 bg-white w-full opacity-0 group-hover:opacity-100 duration-500 invisible transition-opacity group-hover:visible">
-                  <div className="container">
-                    <div className="flex justify-betweenm  gap-10 items-center">
-                      <div className="grid grid-cols-2 gap-x-16 gap-y-24 py-2 shrink-0">
+              {!test ? (
+                <li className="text-white font-semibold font-roboto text-[16px] transition-colors duration-200 group  flex items-center cursor-pointer px-5 py-2.5">
+                  <span className="">More</span>
+                  <div className="absolute left-0 -bottom-[80px] p-4 bg-white w-full opacity-0 group-hover:opacity-100 duration-500 invisible transition-opacity group-hover:visible">
+                    <div className="container">
+                      <div className="flex justify-between">
                         {dataMore.map((item, i) => {
                           return (
                             <div className="flex items-center gap-3 " key={i}>
@@ -145,15 +118,49 @@ const Header = () => {
                             </div>
                           );
                         })}
-                      </div>
-
-                      <div className="shrink-0">
-                        <Image src={chooeseUsImg} alt="" />
+                        <div></div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </li> */}
+                </li>
+              ) : (
+                <li className="text-white font-semibold font-roboto text-[16px] transition-colors duration-200 group  flex items-center cursor-pointer px-5 py-2.5">
+                  <span className="">More</span>
+                  <div className="absolute left-0 -bottom-[385px] p-8 bg-white w-full opacity-0 group-hover:opacity-100 duration-500 invisible transition-opacity group-hover:visible">
+                    <div className="container">
+                      <div className="flex justify-betweenm  gap-10 items-center">
+                        <div className="grid grid-cols-2 gap-x-16 gap-y-24 py-2 shrink-0">
+                          {dataMore.map((item, i) => {
+                            return (
+                              <div className="flex items-center gap-3 " key={i}>
+                                <div>
+                                  <Image
+                                    src={item.img}
+                                    alt=""
+                                    className="w-14"
+                                  />
+                                </div>
+                                <div>
+                                  <h5 className="text-[#252525] font-bold text-[18px] leading-none">
+                                    {item.title}
+                                  </h5>
+                                  <p className="text-[#505050] font-normal text-[16px]">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        <div className="shrink-0">
+                          <Image src={chooeseUsImg} alt="" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              )}
             </ul>
             <div className="flex gap-3 mt-5 md:mt-0 md:ml-auto">
               <Link
